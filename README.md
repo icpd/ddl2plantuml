@@ -71,5 +71,5 @@ table( example ) {
 
 @enduml
 ```
-screenshot
+screenshot  
 ![Screenshot.png](Screenshot.png)
