@@ -1,0 +1,23 @@
+@startuml
+'https://raphael-leger.medium.com/automatically-generating-up-to-date-database-diagrams-with-typeorm-d1279a20545e
+
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+!define table(x) entity x << (T, pink) >>
+!define comment(x) <color:green>x</color>
+!define type(x) <color:blue>x</color>
+
+{{ range . -}}
+table( {{ .Name }} ) {
+    {{- range .Columns }}
+    {{- if .IsPrimaryKey }}
+    primary_key( {{ .Name }} ): type( {{ .Type }} ) {{ if .Comment }} comment( {{ .Comment }} ) {{ end }}
+    {{- else }}
+    column( {{ .Name }} ): type( {{ .Type }} ) {{ if .Comment }} comment( {{ .Comment }} ) {{ end }}
+    {{- end }}
+    {{- end }}
+}
+{{- end }}
+
+@enduml
