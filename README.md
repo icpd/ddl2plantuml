@@ -6,39 +6,6 @@ ddl2plantuml is a tool to generate plantuml ER diagram from database ddl.
 
 - [x] mysql
 
-### Installation
-
-[Release](https://github.com/whoisix/ddl2plantuml/releases)
-
-### Usage
-
-```sh
-$ ddl2plantuml -h                                                                                                               (1s)[0:30:06] 
-NAME:
-   ddl2plantuml - Convert DDL to PlantUML
-
-USAGE:
-   ddl2plantuml [global options] command [command options] [arguments...]
-
-VERSION:
-   v0.0.1
-
-DESCRIPTION:
-   ddl2plantuml is a tool to generate plantuml ER diagram from database ddl.
-
-COMMANDS:
-   help, h  Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --driver value, -d value    database driver (default: "mysql")
-   --template value, -t value  plantuml template file
-   --file value, -f value      ddl sql file, required
-   --output value, -o value    output directory (default: ".")
-   --help, -h                  show help (default: false)
-   --version, -v               print the version (default: false)
-
-```
-
 ### Quick start
 
 create a sql file, for example:
@@ -73,3 +40,39 @@ table( example ) {
 ```
 screenshot  
 ![Screenshot.png](Screenshot.png)
+
+### Installation
+- download the latest release from [Release](https://github.com/whoisix/ddl2plantuml/releases)
+- docker run, need replace file directory and file name
+    ```sh
+    $ docker run -v {{ddlpath}}:/var  whoisix/ddl2plantuml -f /var/{{ddlfile}}  -o /var 
+    ```
+
+### Usage
+
+```sh
+$ ddl2plantuml -h 
+NAME:
+   ddl2plantuml - Convert DDL to PlantUML
+
+USAGE:
+   ddl2plantuml [global options] command [command options] [arguments...]
+
+VERSION:
+   v0.0.1
+
+DESCRIPTION:
+   ddl2plantuml is a tool to generate plantuml ER diagram from database ddl.
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --driver value, -d value    database driver (default: "mysql")
+   --template value, -t value  plantuml template file
+   --file value, -f value      ddl sql file, required
+   --output value, -o value    output directory (default: ".")
+   --help, -h                  show help (default: false)
+   --version, -v               print the version (default: false)
+
+```
