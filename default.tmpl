@@ -8,6 +8,9 @@
 !define comment(x) <color:green>x</color>
 !define type(x) <color:blue>x</color>
 
+hide methods
+hide stereotypes
+
 {{ range . -}}
 table( {{ .Name }} ) {
     {{- range .Columns }}
