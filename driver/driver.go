@@ -13,5 +13,6 @@ type Column struct {
 
 type Table struct {
 	Name    string
+	Comment string
 	Columns []Column
 }

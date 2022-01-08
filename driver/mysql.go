@@ -31,6 +31,12 @@ func (m *Mysql) Parse(ddl string) ([]Table, error) {
 			Columns: make([]Column, 0, len(createTable.Columns)),
 		}
 
+		for _, option := range createTable.Options {
+			if option.Type == sqlparser.TableOptionComment {
+				table.Comment = option.StrValue
+			}
+		}
+
 		var primaryKeyName string
 		for _, constraint := range createTable.Constraints {
 			if constraint.Type == sqlparser.ConstraintPrimaryKey {

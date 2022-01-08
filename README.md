@@ -11,39 +11,25 @@ ddl2plantuml is a tool to generate plantuml ER diagram from database ddl.
 create a sql file, for example:
 ```sql
 create table example (
-    id int not null auto_increment comment 'primary key of the example',
-    name varchar(255) not null comment 'name of the example',
-    description text not null comment 'description of the example',
-    created_at datetime not null default current_timestamp comment 'creation date',
-    updated_at datetime not null default current_timestamp on update current_timestamp comment 'last update date',
-    primary key (id)
-);
+   id int not null auto_increment comment 'comment for id',
+   name varchar(255) not null comment 'comment for name',
+   description text not null comment 'comment for description',
+   created_at datetime not null default current_timestamp comment 'comment for created_at',
+   updated_at datetime not null default current_timestamp on update current_timestamp comment 'comment for updated_at',
+   primary key (id)
+) comment 'table comment';
 ```
 
 run the command:
 ```sh
 $ ddl2plantuml -f example.sql
 ```
-generate the plantuml file:
-```plantuml
-@startuml
-
-table( example ) {
-    primary_key( id ): type( int )  comment( "primary key of the example" ) 
-    column( name ): type( varchar )  comment( "name of the example" ) 
-    column( description ): type( text )  comment( "description of the example" ) 
-    column( created_at ): type( datetime )  comment( "creation date" ) 
-    column( updated_at ): type( datetime )  comment( "last update date" ) 
-}
-
-@enduml
-```
 screenshot  
 ![Screenshot.png](Screenshot.png)
 
 ### Installation
 - download the latest release from [Release](https://github.com/whoisix/ddl2plantuml/releases)
-- docker run, need replace file directory and file name
+- docker run. replace file directory and file name
     ```sh
     $ docker run -v {{ddlpath}}:/var  whoisix/ddl2plantuml -f /var/{{ddlfile}}  -o /var 
     ```
@@ -74,5 +60,7 @@ GLOBAL OPTIONS:
    --output value, -o value    output directory (default: ".")
    --help, -h                  show help (default: false)
    --version, -v               print the version (default: false)
-
 ```
+
+### Reference
+[wangyuheng/ddl2plantuml](https://github.com/wangyuheng/ddl2plantuml)

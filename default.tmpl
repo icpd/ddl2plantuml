@@ -4,7 +4,7 @@
 !define primary_key(x) <b><color:#b8861b><&key></color> x</b>
 !define foreign_key(x) <color:#aaaaaa><&key></color> x
 !define column(x) <color:#efefef><&media-record></color> x
-!define table(x) entity x << (T, pink) >>
+!define table(name, desc) class name as "desc" << (T,#FFAAAA) >>
 !define comment(x) <color:green>x</color>
 !define type(x) <color:blue>x</color>
 
@@ -12,7 +12,7 @@ hide methods
 hide stereotypes
 
 {{ range . -}}
-table( {{ .Name }} ) {
+table( {{ .Name }}, {{ .Name }}{{ if .Comment }}\n({{ .Comment }}) {{- end }} ) {
     {{- range .Columns }}
     {{- if .IsPrimaryKey }}
     primary_key( {{ .Name }} ): type( {{ .Type }} ) {{ if .Comment }} comment( {{ .Comment }} ) {{ end }}
