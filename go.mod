@@ -1,4 +1,4 @@
-module github.com/whoisix/dl2plantuml
+module github.com/whoisix/ddl2plantuml
 
 go 1.17
 
