@@ -37,9 +37,10 @@ func main() {
 			Usage:   "plantuml template file",
 		},
 		&cli.StringFlag{
-			Name:    "file",
-			Aliases: []string{"f"},
-			Usage:   "ddl sql file, required",
+			Name:     "file",
+			Aliases:  []string{"f"},
+			Usage:    "ddl sql file, required",
+			Required: true,
 		},
 		&cli.StringFlag{
 			Name:    "output",
@@ -55,39 +56,37 @@ func main() {
 }
 
 func action(c *cli.Context) error {
-	if c.String("file") == "" {
-		return cli.Exit("Is there something missing?\ntry '-h' for more information", 1)
+	var d driver.Driver
+	switch c.String("driver") {
+	case "mysql":
+		d = &driver.Mysql{}
+	default:
+		return cli.Exit("unsupported driver", 1)
 	}
 
 	// get template
 	tpl, err := getTemplateFile(c.String("template"))
 	if err != nil {
-		return err
+		return cli.Exit(err, 1)
 	}
 
 	// get ddl from sql file
 	ddl, err := ioutil.ReadFile(c.String("file"))
 	if err != nil {
-		return err
-	}
-
-	var d driver.Driver
-	switch c.String("driver") {
-	case "mysql":
-		d = &driver.Mysql{}
+		return cli.Exit(err, 1)
 	}
 
 	// parse ddl
 	tables, err := d.Parse(*(*string)(unsafe.Pointer(&ddl)))
 	if err != nil {
-		return err
+		return cli.Exit(err, 1)
 	}
 
 	// generate plantuml file
 	outputFile := path.Join(c.String("output"), "er.puml")
 	err = generate(tpl, tables, outputFile)
 	if err != nil {
-		return err
+		return cli.Exit(err, 1)
 	}
 
 	log.Print("file saved: ", outputFile)

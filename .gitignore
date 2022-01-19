@@ -93,3 +93,4 @@ fabric.properties
 *.sql
 *.puml
 ddl2plantuml
+main
