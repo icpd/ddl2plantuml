@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strings"
 	"text/template"
 	"unsafe"
 
@@ -57,7 +58,7 @@ func main() {
 
 func action(c *cli.Context) error {
 	var d driver.Driver
-	switch c.String("driver") {
+	switch strings.ToLower(c.String("driver")) {
 	case "mysql":
 		d = &driver.Mysql{}
 	default:
