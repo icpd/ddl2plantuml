@@ -1,9 +1,10 @@
 module github.com/whoisix/ddl2plantuml
 
-go 1.17
+go 1.18
 
 require (
 	github.com/blastrain/vitess-sqlparser v0.0.0-20201030050434-a139afbb1aba
+	github.com/jinzhu/inflection v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
 )

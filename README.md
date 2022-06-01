@@ -10,14 +10,37 @@ ddl2plantuml is a tool to generate plantuml ER diagram from database ddl.
 
 create a sql file, for example:
 ```sql
-create table example (
-   id int not null auto_increment comment 'comment for id',
-   name varchar(255) not null comment 'comment for name',
-   description text not null comment 'comment for description',
-   created_at datetime not null default current_timestamp comment 'comment for created_at',
-   updated_at datetime not null default current_timestamp on update current_timestamp comment 'comment for updated_at',
-   primary key (id)
-) comment 'table comment';
+create table user
+(
+  id         int          not null auto_increment comment 'user`s id',
+  name       varchar(255) not null comment 'user`s name',
+  created_at datetime     not null default current_timestamp,
+  updated_at datetime     not null default current_timestamp on update current_timestamp,
+  deleted_at datetime     null,
+  primary key (id)
+) comment 'user table';
+
+create table credit_card
+(
+  id         int          not null auto_increment comment 'credit card`s id',
+  user_id    int          not null comment 'user`s id',
+  number     varchar(255) not null comment 'credit card number',
+  created_at datetime     not null default current_timestamp,
+  updated_at datetime     not null default current_timestamp on update current_timestamp,
+  deleted_at datetime     null,
+  primary key (id)
+) comment 'credit card table';
+
+create table car
+(
+  id         int          not null auto_increment comment 'car`s id',
+  user_id    int          not null comment 'user`s id',
+  name       varchar(255) not null comment 'car`s name',
+  created_at datetime     not null default current_timestamp,
+  updated_at datetime     not null default current_timestamp on update current_timestamp,
+  deleted_at datetime     null,
+  primary key (id)
+)
 ```
 
 run the command:

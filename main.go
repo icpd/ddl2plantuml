@@ -82,10 +82,16 @@ func action(c *cli.Context) error {
 	if err != nil {
 		return cli.Exit(err, 1)
 	}
+	relationship := tables.Relationship()
 
 	// generate plantuml file
 	outputFile := path.Join(c.String("output"), "er.puml")
-	err = generate(tpl, tables, outputFile)
+	data := tmplData{
+		Tables:       tables,
+		Relationship: relationship,
+	}
+
+	err = data.generate(tpl, outputFile)
 	if err != nil {
 		return cli.Exit(err, 1)
 	}
@@ -94,16 +100,12 @@ func action(c *cli.Context) error {
 	return nil
 }
 
-func getTemplateFile(filepath string) (*template.Template, error) {
-
-	if filepath == "" {
-		return template.ParseFS(tmpl, "default.tmpl")
-	}
-
-	return template.ParseFiles(filepath)
+type tmplData struct {
+	Tables       []driver.Table
+	Relationship []driver.Relation
 }
 
-func generate(tpl *template.Template, tables []driver.Table, outputFile string) error {
+func (t tmplData) generate(tpl *template.Template, outputFile string) error {
 	dir := path.Dir(outputFile)
 	if !exists(dir) {
 		err := mkDir(dir)
@@ -127,11 +129,20 @@ func generate(tpl *template.Template, tables []driver.Table, outputFile string) 
 		}
 	}(file)
 
-	err = tpl.Execute(file, tables)
+	err = tpl.Execute(file, t)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func getTemplateFile(filepath string) (*template.Template, error) {
+
+	if filepath == "" {
+		return template.ParseFS(tmpl, "default.tmpl")
+	}
+
+	return template.ParseFiles(filepath)
 }
 
 func exists(path string) bool {

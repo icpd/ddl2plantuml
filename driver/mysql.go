@@ -8,7 +8,7 @@ import (
 
 type Mysql struct{}
 
-func (m *Mysql) Parse(ddl string) ([]Table, error) {
+func (m *Mysql) Parse(ddl string) (Tables, error) {
 	tables := strings.Split(ddl, ";")
 	result := make([]Table, 0, len(tables)) // not accurate table count
 	for _, ddl := range tables {

@@ -1,17 +1,21 @@
 @startuml
 'https://raphael-leger.medium.com/automatically-generating-up-to-date-database-diagrams-with-typeorm-d1279a20545e
 
-!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+skinparam class {
+    BackgroundColor #eef4f4
+}
+
+!define primary_key(x) <b><color:#0fbebe><&key></color> x</b>
 !define foreign_key(x) <color:#aaaaaa><&key></color> x
 !define column(x) <color:#efefef><&media-record></color> x
-!define table(name, desc) class name as "desc" << (T,#FFAAAA) >>
-!define comment(x) <color:green>x</color>
-!define type(x) <color:blue>x</color>
+!define table(name, desc) class name as "desc" << (T,#aafdcf) >>
+!define comment(x) <color:#1b1cbf>x</color>
+!define type(x) <color:#fa5410>x</color>
 
 hide methods
 hide stereotypes
 
-{{ range . }}
+{{ range .Tables }}
 table( {{ .Name }}, {{ .Name }}{{ if .Comment }}\n({{ .Comment }}) {{- end }} ) {
     {{- range .Columns }}
     {{- if .IsPrimaryKey }}
@@ -22,4 +26,11 @@ table( {{ .Name }}, {{ .Name }}{{ if .Comment }}\n({{ .Comment }}) {{- end }} ) 
     {{- end }}
 }
 {{ end }}
+
+{{ range $r := .Relationship -}}
+{{- range $r.RelationTables -}}
+"{{ $r.TableName }}" "id" -- "{{ .Column }}" "{{ .TableName }}"
+{{ end }}
+{{- end }}
+
 @enduml
