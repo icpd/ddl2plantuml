@@ -2,7 +2,7 @@ NAME=ddl2plantuml
 BINDIR=bin
 VERSION=$(shell git describe --tags || echo "unknown version")
 BUILDTIME=$(shell date -u)
-GOBUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-X "github.com/whoisix/dl2plantuml/constants.Version=$(VERSION)"'
+GOBUILD=CGO_ENABLED=0 go build -trimpath -ldflags '-X "github.com/whoisix/ddl2plantuml/constants.Version=$(VERSION)"'
 
 PLATFORM_LIST = \
 	darwin-amd64 \
