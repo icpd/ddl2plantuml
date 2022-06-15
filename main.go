@@ -10,9 +10,9 @@ import (
 	"text/template"
 	"unsafe"
 
+	"github.com/icpd/ddl2plantuml/constants"
+	"github.com/icpd/ddl2plantuml/driver"
 	"github.com/urfave/cli/v2"
-	"github.com/whoisix/ddl2plantuml/constants"
-	"github.com/whoisix/ddl2plantuml/driver"
 )
 
 //go:embed default.tmpl

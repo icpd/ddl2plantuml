@@ -51,7 +51,7 @@ screenshot
 ![Screenshot.png](Screenshot.png)
 
 ### Installation
-- download the latest release from [Release](https://github.com/whoisix/ddl2plantuml/releases)
+- download the latest release from [Release](https://github.com/icpd/ddl2plantuml/releases)
 - docker run. replace file directory and file name
     ```sh
     $ docker run -v {{ddlpath}}:/var  whoisix/ddl2plantuml -f /var/{{ddlfile}}  -o /var 
